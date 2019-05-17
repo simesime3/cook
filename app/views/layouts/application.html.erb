@@ -10,6 +10,39 @@
   </head>
 
   <body>
+
+    <div class="main">
+
+      <div class="text-main text-black">
+        <%= link_to '今日の晩御飯', '/', class: 'btn-block btn-white' %>
+      </div>
+    </div>
+    <ul class="userform">
+      <% if !(logged_in?) %>
+        <li class="text-login text-black">
+          <%= link_to 'ユーザ登録', '/users/new', class: 'btn btn-block btn-white' %>
+        </li>
+      <li class="text-login text-black">
+        <%= link_to 'ログイン', '/login', class: 'btn btn-block btn-white' %>
+      </li>
+      <% else %>
+      <li class="text-login text-black">
+        <%= link_to 'ログアウト', '/logout', method: :delete, class: 'btn btn-block btn-white' %>
+      </li>
+      <li class="text-login text-black">
+        <%= link_to 'マイページ', '#', class: 'btn btn-block btn-white' %>
+      </li>
+      <li class="text-login text-black">
+        <%= link_to 'お気に入り', '#', class: 'btn btn-block btn-white' %>
+      </li>
+      <% end %>
+    </ul>
+    <script>
+    $(function(){
+      $(".alert").fadeOut(5000);
+    });
+    </script>
     <%= yield %>
   </body>
+
 </html>
