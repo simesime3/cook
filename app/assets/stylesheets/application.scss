@@ -1,5 +1,12 @@
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import 'custom';
-*= require font-awesome
+@import "font-awesome";
+@import "animate";
+@import "responsive";
+@import "pe-icon-7-stroke";
+@import "owl.carousel.min";
+@import "meanmenu.min";
+@import "magnific-popup";
+@import "font-awesome.min";
+// @import "bootstrap.min";
+@import "style"
