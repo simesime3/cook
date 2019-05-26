@@ -28,6 +28,14 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
 
 /* ***** Import CSS ***** */
+@import 'bootstrap.min.scss';
+@import 'animate.scss';
+@import 'magnific-popup.scss';
+@import 'meanmenu.min.scss';
+@import 'owl.carousel.min.scss';
+@import 'font-awesome.min.scss';
+@import 'pe-icon-7-stroke.scss';
+
 
 // @import 'css/bootstrap/bootstrap.min.css';
 // @import 'css/others/animate.css';
@@ -554,7 +562,7 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    cursor: url(img/core-img/back.png), auto !important;
+    /* cursor: url(img/core-img/back.png), auto !important; */
     z-index: 9;
 }
 
@@ -565,7 +573,7 @@ li {
     height: 100%;
     top: 0;
     right: 0;
-    cursor: url(img/core-img/next.png), auto !important;
+    /* cursor: url(img/core-img/next.png), auto !important; */
 }
 
 /* --------------------
@@ -795,7 +803,7 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    cursor: url(img/core-img/back.png), auto !important;
+    /* cursor: url(img/core-img/back.png), auto !important; */
     z-index: 9;
 }
 
@@ -806,7 +814,7 @@ li {
     height: 100%;
     top: 0;
     right: 0;
-    cursor: url(img/core-img/next.png), auto !important;
+    /* cursor: url(img/core-img/next.png), auto !important; */
 }
 
 

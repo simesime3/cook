@@ -1,10 +1,5 @@
-.top-hero-wrapper{
-  background-color: #FF6633;
-}
 
-body{
-  background-color: #FF6633;
-}
+
 .main{
   margin-top: 40px;
   margin-bottom: 10px;
@@ -37,8 +32,8 @@ body{
 
 
 .btn-white {
-  color: black;
-  border: 1px solid #fff;
+  color: white;
+  border: 3px solid #fff;
 
   &:hover {
     color: black;
@@ -57,7 +52,6 @@ body{
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: #FF6633;
 
   .users-new-container {
     padding-top: 15px;

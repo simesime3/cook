@@ -10,11 +10,11 @@
 :: 1.0 Base CSS
 :: 2.0 Top Header Area CSS
 :: 3.0 Menu Area CSS
-:: 4.0 Wellcome Area CSS 
-:: 5.0 Top Feature Area CSS 
-:: 6.0 Blog Area CSS 
-:: 7.0 Instagram Area CSS 
-:: 8.0 Footer Social Area CSS 
+:: 4.0 Wellcome Area CSS
+:: 5.0 Top Feature Area CSS
+:: 6.0 Blog Area CSS
+:: 7.0 Instagram Area CSS
+:: 8.0 Footer Social Area CSS
 :: 9.0 Goole Map Area CSS
 :: 10.0 Sidebar Area CSS
 :: 11.0 Breadcumb Area CSS
@@ -478,7 +478,7 @@ li {
 }
 
 /* --------------------
-:: 4.0 Wellcome Area CSS 
+:: 4.0 Wellcome Area CSS
 -------------------- */
 
 .welcome-single-slide {
@@ -554,7 +554,7 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    cursor: url(img/core-img/back.png), auto !important;
+    /* cursor: url(img/core-img/back.png), auto !important; */
     z-index: 9;
 }
 
@@ -565,11 +565,11 @@ li {
     height: 100%;
     top: 0;
     right: 0;
-    cursor: url(img/core-img/next.png), auto !important;
+    /* cursor: url(img/core-img/next.png), auto !important; */
 }
 
 /* --------------------
-:: 5.0 Top Feature Area CSS 
+:: 5.0 Top Feature Area CSS
 -------------------- */
 
 .categories_area {
@@ -617,7 +617,7 @@ li {
 }
 
 /* --------------------
-:: 6.0 Blog Area CSS 
+:: 6.0 Blog Area CSS
 -------------------- */
 
 .post-thumb img {
@@ -744,7 +744,7 @@ li {
 }
 
 /* --------------------
-:: 7.0 Instagram Area CSS 
+:: 7.0 Instagram Area CSS
 -------------------- */
 
 .instagram_gallery_item {
@@ -795,7 +795,7 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    cursor: url(img/core-img/back.png), auto !important;
+    /* cursor: url(img/core-img/back.png), auto !important; */
     z-index: 9;
 }
 
@@ -806,12 +806,12 @@ li {
     height: 100%;
     top: 0;
     right: 0;
-    cursor: url(img/core-img/next.png), auto !important;
+    /* cursor: url(img/core-img/next.png), auto !important; */
 }
 
 
 /* --------------------
-:: 8.0 Footer Social Area CSS 
+:: 8.0 Footer Social Area CSS
 -------------------- */
 
 .footer-social-area {
@@ -1190,7 +1190,7 @@ li {
     background-position: center center;
 }
 
-/* -------------------- 
+/* --------------------
 :: 14.0 Single Blog CSS
 -------------------- */
 
