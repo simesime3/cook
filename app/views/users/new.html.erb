@@ -2,8 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-offset-4 col-md-4 users-new-container">
-        <h1 class="text-center text-black">make account</h1>
-
+        <h1 class="text-center text-black">新規作成</h1>
         <%= form_for @user do |f| %>
           <div class="form-group">
             <%= f.label :name, class: 'text-black' %>
@@ -21,8 +20,7 @@
             <%= f.label :password_confirmation, class: 'text-black' %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
           </div>
-
-          <%= f.submit "登録", class: 'btn-block btn-white' %>
+          <%= f.submit "登録", class: 'btn-block text-black form-control' %>
         <% end %>
         <%= link_to 'ログインはこちら', '/login',class: 'text-black' %>
         </div>

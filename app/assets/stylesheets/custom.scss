@@ -1,4 +1,10 @@
+.alert {
+  margin-bottom: 0px;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
 
+}
 
 .main{
   margin-top: 40px;
@@ -20,6 +26,9 @@
 }
 .text-black {
   color: black;
+  &:hover {
+    color: blue;
+  }
 }
 .text-login{
   display: table-cell;
@@ -32,11 +41,11 @@
 
 
 .btn-white {
-  color: white;
-  border: 3px solid #fff;
+  color: black;
+  border: 1px solid black;
 
   &:hover {
-    color: black;
+    color: blue;
   }
 }
 
@@ -60,4 +69,19 @@
       margin-bottom: 20px;
     }
   }
+}
+
+.box{
+  height: 15px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+
+
+.about-me-widget-thumb{
+    height: 200px;
+    width: 200px;
+    margin: auto;
+    border-radius: 50%;
 }

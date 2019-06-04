@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>アカウント画像</h1>
+          <%= form_for @selffot, url: {controller: :images, action: :update}, method: :post do |f| %>
+        <div>
+          <%= f.label :image %>
+          <%= f.file_field :image%>
+          <%= f.submit '保存' %>
+        </div>
+        <% end %>
+         <!--　画像が保存されていたら表示 -->
+        <% if @selffot_current %>
+          <%= image_tag @selffot.selffot.url %>
+        <% end %>
+        <h1 class="text-center">食材登録</h1>
+        <%= form_for @storage do |f| %>
+          <div class="form-group">
+            <%= f.label :category %>
+            <%= f.text_area :category, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :material %>
+            <%= f.text_area :material, class: 'form-control' %>
+          </div>
+            <%= f.submit '保存', class: 'btn btn-black btn-block' %>
+        <% end %>
+
+          <!--　保存されたstorageを表示 -->
+      </div>
+    </div>
+</div>

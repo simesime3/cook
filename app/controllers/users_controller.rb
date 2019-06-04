@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 end
 private #クラス内部でしか利用できないようにする
-def user_params
-  params.require(:user).permit(:name, :email, :password, :password_confirmation) #userメソッドをrequireで呼び出し、nameとemailのパラメータのみを許可
-end
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation) #userメソッドをrequireで呼び出し、nameとemailのパラメータのみを許可
+  end
 end

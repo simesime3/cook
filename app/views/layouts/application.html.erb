@@ -22,17 +22,27 @@
     <!-- <link href="/assets/stylesheets/responsive.scss" rel="stylesheets"> -->
     <!-- /ネット上のbootstrapからクラスを読み込む -->
     <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-
+    <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
+
+    <script>
+      $(function(){
+        $(".alert").fadeOut(3000);
+      });
+    </script>
 
 </head>
 
 <body>
       <!-- Preloader Start -->
-      <div id="preloader">
+      <!-- <div id="preloader">
           <div class="yummy-load"></div>
-      </div>
+      </div> -->
 
       <!-- Background Pattern Swither -->
       <div id="pattern-switcher">
@@ -59,35 +69,37 @@
                   <!--  Login Register Area -->
                   <div class="col-7 col-sm-6">
                       <div class="signup-search-area d-flex align-items-center justify-content-end">
-                          <div class="login_register_area d-flex">
-                            <%= link_to "#" do %>
-                              <div class="login">
-                                  <a>My page</a>
-                              </div>
-                            <% end %>
-                            <%= link_to "/login" do %>
-                              <div class="login">
-                                  <a>Sign up</a>
-                              </div>
-                            <% end %>
-                            <%= link_to "logout" ,method: :delete do  %>
-                              <div class="login">
-                                  <a>Sign out</a>
-                              </div>
-                            <% end %>
-                          </div>
-                          <!-- Search Button Area -->
-                          <div class="search_button">
-                              <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                          </div>
-                          <!-- Search Form -->
-                          <div class="search-hidden-form">
-                              <form action="#" method="get">
-                                  <input type="search" name="search" id="search-anything" placeholder="Search Anything...">
-                                  <input type="submit" value="" class="d-none">
-                                  <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                              </form>
-                          </div>
+                        <div class="login_register_area d-flex">
+                          <% if logged_in? %>
+                            <div class="login">
+                              <%= link_to "マイページ", "/storages" %>
+                            </div>
+                            <div class="login">
+                              <%= link_to "ログアウト" ,'/logout',method: :delete  %>
+                            </div>
+                          <% else %>
+                            <div class="login">
+                              <%= link_to "新規作成", users_new_path %>
+                            </div>
+                            <div class="login">
+                              <%= link_to "ログイン", login_path %>
+                            </div>
+                          <% end %>
+                        </div>
+                      </div>
+                      <!-- Search Button Area -->
+                      <div class="signup-search-area d-flex align-items-center justify-content-end">
+                        <div class="search_button">
+                            <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                        <!-- Search Form -->
+                        <div class="search-hidden-form">
+                            <form action="#" method="get">
+                                <input type="search" name="search" id="search-anything" placeholder="Search Anything...">
+                                <input type="submit" value="" class="d-none">
+                                <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
+                            </form>
+                        </div>
                       </div>
                   </div>
               </div>
@@ -102,7 +114,7 @@
                   <!-- Logo Area Start -->
                   <div class="col-12">
                       <div class="logo_area text-center">
-                          <a href="index.html" class="yummy-logo">Today Menu</a>
+                          <a href="/" class="yummy-logo">Today Menu</a>
                       </div>
                   </div>
               </div>
@@ -114,20 +126,8 @@
                           <!-- Menu Area Start -->
                           <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                               <ul class="navbar-nav" id="yummy-nav">
-                                  <li class="nav-item active">
-                                    <%= link_to root_path do %>
-                                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                                    <% end %>
-                                  </li>
-                                  <li class="nav-item dropdown">
-                                      <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                      <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                          <a class="dropdown-item" href="index.html">Home</a>
-                                          <a class="dropdown-item" href="archive.html">Archive</a>
-                                          <a class="dropdown-item" href="single.html">Single Blog</a>
-                                          <a class="dropdown-item" href="static.html">Static Page</a>
-                                          <a class="dropdown-item" href="contact.html">Contact</a>
-                                      </div>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="/">Home</a>
                                   </li>
                                   <li class="nav-item">
                                       <a class="nav-link" href="#">Features</a>
@@ -169,7 +169,9 @@
       <!-- Active JS -->
       <script src="js/active.js"></script>
 
+
       <%= yield %>
+
 
   </body>
 
