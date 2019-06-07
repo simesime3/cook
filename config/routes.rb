@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'titles/new'
   get 'images/new'
   get 'storages/new'
   get 'sessions/new'
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
   resources :users
   resources :storages
   resources :images
-
+  resources :titles
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

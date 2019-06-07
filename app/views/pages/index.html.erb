@@ -301,11 +301,16 @@
                                   <h6>About Me</h6>
                               </div>
                               <div class="about-me-widget-thumb">
-                                  <img src="img/about-img/1.jpg" alt="">
+                                <% if myimage %>
+                                <%= image_tag myimage.image.url, class: 'about-me-widget-thumb' %>
+                              <% else %>
+                                <img src="img/about-img/no-image.png" alt="">
+                              <% end %>
                               </div>
-                              <h4 class="font-shadow-into-light">Shopia Bernard</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                          </div>
+                              <% if current_user %>
+                                <h4 class="font-shadow-into-light"><%= current_user.name %></h4>
+                              <% end %>
+                            </div>
 
                           <!-- Single Widget Area -->
                           <div class="single-widget-area subscribe_widget text-center">

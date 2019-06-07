@@ -1,10 +1,12 @@
 <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h1>アカウント名:<% @current_user.name %></h1>
+        <h1 class="font-shadow-into-light"><%= current_user.name %></h1>
         <!--　画像が保存されていたら表示 -->
-        <% if @self %>
-          <%= image_tag @self.image.url, class: 'about-me-widget-thumb' %>
+        <% if myimage %>
+          <%= image_tag myimage.image.url, class: 'about-me-widget-thumb' %>
+        <% else %>
+          <img src="img/about-img/no-image.png" alt="">
         <% end %>
           <%= form_for @selffot, url: {controller: :images} do |f| %>
         <div>
@@ -13,7 +15,7 @@
           <%= f.submit '保存' %>
         </div>
         <% end %>
-        <h1 class="text-center">食材登録</h1>
+        <h1>食材登録</h1>
         <%= form_for @storage do |f| %>
           <div class="form-group">
             <%= f.label :category ,class: "box"%>
@@ -25,11 +27,50 @@
         <% end %>
         <!--　保存されたstorageを表示 -->
         <h1>所有物</h1>
-        <h2>調味料</h2>
-          <% @storages.where(category: "調味料").each do |f| %>
-            <%= f.material %>
-            <%= link_to '削除', storage_path(@material), method: :delete, class: "btn btn-primary btn-xs" %>
-          <% end %>
+        <div class="category-space">
+          <div class="material-space">
+            <h2>調味料</h2>
+            <% @storages.where(category: "調味料").each do |f| %>
+              <div class="material-space-one">
+                <%= f.material %>
+                <%= link_to '削除', storage_path(id: f.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="category-space">
+          <div class="material-space">
+            <h2>野菜</h2>
+            <% @storages.where(category: "野菜").each do |f| %>
+              <div class="material-space-one">
+                <%= f.material %>
+                <%= link_to '削除', storage_path(id: f.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="category-space">
+          <div class="material-space">
+            <h2>肉</h2>
+            <% @storages.where(category: "肉").each do |f| %>
+              <div class="material-space-one">
+                <%= f.material %>
+                <%= link_to '削除', storage_path(id: f.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="category-space">
+          <div class="material-space">
+            <h2>魚</h2>
+            <% @storages.where(category: "魚").each do |f| %>
+              <div class="material-space-one">
+                <%= f.material %>
+                <%= link_to '削除', storage_path(id: f.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
 </div>

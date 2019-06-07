@@ -3,7 +3,6 @@ class StoragesController < ApplicationController
   def index
     @storage = Storage.new
     @selffot = Selffot.new
-    @self = Selffot.find_by(user_id: current_user.id)
     @storages = current_user.storages.all
   end
 
@@ -18,7 +17,7 @@ class StoragesController < ApplicationController
   end
 
   def destroy
-    @material.destroy
+    Storage.find_by(id: params[:id]).destroy
     redirect_to storages_path, info: '削除しました'
   end
 
@@ -26,8 +25,4 @@ class StoragesController < ApplicationController
   def storage_params
     params.require(:storage).permit(:category, :material)
   end
-  def storage_destroy
-
-  end
-
 end

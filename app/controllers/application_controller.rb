@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :myimage
 
   protect_from_forgery  with: :exception
   add_flash_types :success, :info, :warning, :danger
@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
+  def myimage
+    if current_user
+      @self = Selffot.find_by(user_id: current_user.id)
+    end
+  end
 end

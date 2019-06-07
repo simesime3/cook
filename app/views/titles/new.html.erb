@@ -1,0 +1,21 @@
+<div class="col-md-6 col-md-offset-3">
+  <% if @content.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= @content.errors.count %>件のエラーがあります。</h2>
+              <ul>
+              <% @content.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+  <%= form_for @content, url: :titles do |f| %>
+    <h3>タイトル</h3>
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.label :image %>
+    <%= f.file_field :image%>
+    <%= f.submit '保存' %>
+  <% end %>
+
+
+</div>
