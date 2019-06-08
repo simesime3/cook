@@ -1,8 +1,8 @@
-<div class="col-md-offset-3">
+<div class="col-md-6 col-md-offset-3">
   <% @contents.each do |f| %>
-    <%= f.title %>
-    <%= image_tag f.image.url %>
-
+    <div class="text-center content-box">
+      <h2 class="overflow"><%= f.title %></h2>
+      <%= image_tag f.image.url, class: 'about-me-widget-200' %>
+    </div>
   <% end %>
-
 </div>

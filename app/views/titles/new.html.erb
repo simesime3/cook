@@ -1,21 +1,68 @@
 <div class="col-md-6 col-md-offset-3">
-  <% if @content.errors.any? %>
+          <% if @content.errors.any? %>
             <div id="error_explanation">
-              <h2><%= @content.errors.count %>件のエラーがあります。</h2>
+              <h2 class = 'red-color'><%= @content.errors.count %>件のエラーがあります。</h2>
               <ul>
               <% @content.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+                <li class = 'red-color'><%= msg %></li>
               <% end %>
               </ul>
             </div>
           <% end %>
   <%= form_for @content, url: :titles do |f| %>
     <h3>タイトル</h3>
-    <%= f.text_field :title, class: "form-control" %>
-    <%= f.label :image %>
-    <%= f.file_field :image%>
     <%= f.submit '保存' %>
-  <% end %>
 
+    <%= f.text_field :title, class: "form-control" %>
+      <div class="box left">
+        <%= f.label :image %>
+        <%= f.file_field :image%>
+      </div>
+      <div class="box right">
+        <div class="box text-center one-text">
+          <%= f.fields_for :foods do |i| %>
+            <form action="data.php" enctype="multipart/form-data">
+              <table>
+                <thead>
+                  <tr>
+                    <th>材料</th>
+                    <th>数量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <div>
+                      <td><input type="text" name="text_1[]"></td>
+                      <td><input type="text" name="text_2[]"></td>
+                    </div>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td><button id="add" type="button">追加</button></td>
+                  </tr>
+                </tfoot>
+              </table>
+              <input type="submit" name="send" value="送信">
+            </form>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <script type="text/javascript">
+      $(function() {
 
+      $('button#add').click(function(){
+
+      var tr_form = '' +
+      '<tr>' +
+      '<td><input type="text" name="text_1[]"></td>' +
+      '<td><input type="text" name="text_2[]"></td>' +
+      '</tr>';
+
+      $(tr_form).appendTo($('table > tbody'));
+
+      });
+    });
+  </script>
 </div>

@@ -129,12 +129,21 @@
                                   <li class="nav-item">
                                       <a class="nav-link" href="/">Home</a>
                                   </li>
+                                    <% if logged_in? %>
                                   <li class="nav-item">
-                                      <a class="nav-link" href="#">Features</a>
+                                      <a class="nav-link" href="/titles">RECIPE</a>
                                   </li>
                                   <li class="nav-item">
-                                      <a class="nav-link" href="#">Categories</a>
+                                      <a class="nav-link" href="/titles/new">SUBMIT</a>
                                   </li>
+                                    <% else %>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">RECIPE</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">SUBMIT</a>
+                                  </li>
+                                    <% end %>
                                   <li class="nav-item">
                                       <a class="nav-link" href="archive.html">Archive</a>
                                   </li>

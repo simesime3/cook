@@ -1,3 +1,5 @@
+
+
 .alert {
   margin-bottom: 0px;
   position: fixed;
@@ -86,6 +88,8 @@
     border-radius: 50%;
 }
 
+
+
 .material-space{
 word-wrap: break-word;
 margin:5px;
@@ -107,4 +111,50 @@ font-size: 15px;
   padding-bottom: 5px;
   word-break: break-all;
   width: 100%;
+}
+
+.red-color{
+  color: #DC143C;
+}
+
+.about-me-widget-200{
+  height: 200px;
+  width: 200px;
+}
+
+.content-box{
+  display: inline-block;
+  height: 250px;
+  width: 210px;
+  .overflow{
+    overflow: hidden;
+    width: 100%;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+}
+.left {
+  width:60%;
+  height: 300px;
+  border: 2px solid black;
+  border-radius:10px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+}
+.right {
+  width:35%;
+  float: right;
+  height: 300px;
+  border: 2px solid black;
+  border-radius:10px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  .one-text{
+    width: 100%;
+    font-size: 15px;
+  }
+  a {
+    margin: 10px
+  }
 }

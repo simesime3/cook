@@ -3,7 +3,8 @@ class Content < ApplicationRecord
   validates :title, presence: true
   validates :image, presence: true
 
-  belongs_to  :user
+  has_many  :foods
+  has_one   :user
 
   mount_uploader :image, ImageUploader
 end
