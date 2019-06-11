@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ImagesControllerTest < ActionDispatch::IntegrationTest
+class MyImagesControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get images_new_url
+    get my_images_new_url
     assert_response :success
   end
 

@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-  image: MyString
+  user: one
+  category: one
+  material: one
 
 two:
-  user_id: 1
-  image: MyString
+  user: two
+  category: two
+  material: two

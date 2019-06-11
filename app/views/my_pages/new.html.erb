@@ -1,8 +1,9 @@
 <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
+        <% end %>
         <h1>アカウント画像</h1>
-          <%= form_for @selffot, url: {controller: :images, action: :update}, method: :post do |f| %>
+          <%= form_for @my_image, url: {controller: :images, action: :update}, method: :post do |f| %>
         <div>
           <%= f.label :image %>
           <%= f.file_field :image%>
@@ -10,11 +11,21 @@
         </div>
         <% end %>
          <!--　画像が保存されていたら表示 -->
-        <% if @selffot_current %>
-          <%= image_tag @selffot.selffot.url %>
+        <% if @my_image_current %>
+          <%= image_tag @my_image.my_image.url %>
         <% end %>
+              <% if @my_image.errors.any? %>
+                <div id="error_explanation">
+                  <h2 class = 'red-color'><%= @my_image.errors.count %>件のエラーがあります。</h2>
+                  <ul>
+                  <% @my_image.errors.full_messages.each do |msg| %>
+                    <li class = 'red-color'><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
         <h1 class="text-center">食材登録</h1>
-        <%= form_for @storage do |f| %>
+        <%= form_for @my_image do |f| %>
           <div class="form-group">
             <%= f.label :category %>
             <%= f.text_area :category, class: 'form-control' %>
@@ -26,7 +37,7 @@
             <%= f.submit '保存', class: 'btn btn-black btn-block' %>
         <% end %>
 
-          <!--　保存されたstorageを表示 -->
+          <!--　保存されたmy_imageを表示 -->
       </div>
     </div>
 </div>

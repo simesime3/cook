@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_one  :selffot
-  has_many :storages
+  has_one  :my_image
+  has_one  :my_page
   has_many :contents
 end

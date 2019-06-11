@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
+  get 'my_pages/new'
+  get 'my_images/new'
+  get 'pages/new'
   get 'titles/new'
-  get 'images/new'
-  get 'storages/new'
+  get 'my_images/new'
+  get 'my_pages/new'
   get 'sessions/new'
   get 'users/new'
   root 'pages#index'
 
   resources :users
-  resources :storages
-  resources :images
+  resources :my_pages
+  resources :my_images
   resources :titles
 
   get    '/login',   to: 'sessions#new'
