@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_100159) do
+ActiveRecord::Schema.define(version: 2019_06_12_131213) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -35,9 +35,13 @@ ActiveRecord::Schema.define(version: 2019_06_09_100159) do
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "category_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_materials_on_category_id"
+    t.index ["user_id"], name: "index_materials_on_user_id"
   end
 
   create_table "my_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -48,17 +52,6 @@ ActiveRecord::Schema.define(version: 2019_06_09_100159) do
     t.index ["user_id"], name: "index_my_images_on_user_id"
   end
 
-  create_table "my_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "category_id"
-    t.bigint "material_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_my_pages_on_category_id"
-    t.index ["material_id"], name: "index_my_pages_on_material_id"
-    t.index ["user_id"], name: "index_my_pages_on_user_id"
-  end
-
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -67,8 +60,7 @@ ActiveRecord::Schema.define(version: 2019_06_09_100159) do
     t.string "password_digest"
   end
 
+  add_foreign_key "materials", "categories"
+  add_foreign_key "materials", "users"
   add_foreign_key "my_images", "users"
-  add_foreign_key "my_pages", "categories"
-  add_foreign_key "my_pages", "materials"
-  add_foreign_key "my_pages", "users"
 end

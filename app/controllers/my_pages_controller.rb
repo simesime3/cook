@@ -1,19 +1,21 @@
 class MyPagesController < ApplicationController
   def index
     # @my_page = MyPage.new
-    @my_image = MyImage.new
-    @my_page = MyPage.new(user_id: current_user.id)
+    if current_user.my_image.nil?
+      @my_image = current_user.build_my_image
+    else
+      @my_image = current_user.my_image
+    end
+    # @my_page = MyPage.new(user_id: current_user.id)
+    # @my_page = current_user.build_my_page
     @categories = Category.all
-    @material = Material.new
+    @materials = current_user.materials.all.includes(:user)
+    @material = current_user.materials.new
   end
 
   def create
-    # @my_page = current_user.my_pages.new(my_page_params)
-    @my_page.category_id = params[:category_id]
-    @material = Material.create(name: params[:material_id])
-    @my_page.material_id = @material.id
-
-    if @my_page.save!
+    @material = current_user.materials.new(my_page_params)
+    if @material.save!
       redirect_to my_pages_path, success: '保存に成功しました'
     else
       redirect_to my_pages_path, danger: '保存に失敗しました'
@@ -21,12 +23,12 @@ class MyPagesController < ApplicationController
   end
 
   def destroy
-    MyPage.find_by(id: params[:id]).destroy
+    Material.find_by(id: params[:id]).destroy
     redirect_to my_pages_path, info: '削除しました'
   end
 
   private
   def my_page_params
-    params.require(:my_page).permit(:material_id)
+    params.require(:material).permit(:category_id, :name)
   end
 end

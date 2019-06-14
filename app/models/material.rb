@@ -1,5 +1,7 @@
 class Material < ApplicationRecord
-  validates  :name, presence:  true, uniqueness: true
+  validates  :name, presence:  true
 
-  has_one   :my_page
+  belongs_to :user
+  belongs_to :category
+
 end

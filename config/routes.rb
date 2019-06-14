@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'users/new'
   root 'pages#index'
+  patch 'my_images', to: 'my_images#update'
 
   resources :users
   resources :my_pages

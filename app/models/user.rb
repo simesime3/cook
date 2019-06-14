@@ -8,6 +8,6 @@ class User < ApplicationRecord
   has_secure_password
 
   has_one  :my_image
-  has_one  :my_page
+  has_many :materials
   has_many :contents
 end

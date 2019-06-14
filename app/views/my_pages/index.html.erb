@@ -1,35 +1,45 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1 class="font-shadow-into-light"><%= current_user.name %></h1>
-        <!--　画像が保存されていたら表示 -->
-        <% if self_image %>
-          <%= image_tag self_image.image.url, class: 'about-me-widget-thumb' %>
-        <% else %>
-          <img src="img/about-img/no-image.png" alt="">
-        <% end %>
-          <%= form_for @my_image, url: {controller: :my_images} do |f| %>
-        <div>
-          <%= f.label :image %>
-          <%= f.file_field :image%>
-          <%= f.submit '保存' %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1 class="font-shadow-into-light"><%= current_user.name %></h1>
+      <!--　画像が保存されていたら表示 -->
+      <% if myself_image %>
+        <%= image_tag myself_image.image.url, class: 'about-me-widget-thumb' %>
+      <% else %>
+        <img src="img/about-img/no-image.png" alt="">
+      <% end %>
+      <%= form_for @my_image, url: {controller: :my_images} do |f| %>
+        <%= f.label :image %>
+        <%= f.file_field :image, required: true %>
+        <%= f.submit '保存' %>
+      <% end %>
+      <h1>食材登録</h1>
+      <%= form_for @material, url: {controller: :my_pages, action: :create} do |f| %>
+        <div class="form-group">
+          <%= f.label :category_id, class: "box"%>
+          <%= f.collection_select(:category_id, @categories, :id, :name, :prompt => "選択してください")  %>
+          <%= f.label :name, class: "box"%>
+          <%= f.text_area :name, class: 'box' %>
+          <%= f.submit '保存', class: 'box' %>
         </div>
-        <% end %>
-        <h1>食材登録</h1>
-        <%= form_for @my_page do |f| %>
-
-            <div class="form-group">
-              <%= f.label :category_id, class: "box"%>
-              <%= f.select :category_id, @categories.each {|c| [[%W(#{c.name.to_s})],%W(#{c.id.to_i})]}, class: 'box' %>
-              <%= f.label :material_id, class: "box"%>
-              <%= f.text_area :material_id, class: 'box' %>
-              <%= f.submit '保存', class: 'box' %>
-            </div>
-
-        <% end %>
-        <!--　保存されたmy_imageを表示 -->
-        <h1>所有物</h1>
-
-      </div>
+      <% end %>
+      <!--　保存されたmy_imageを表示 -->
+      <h1>所有物</h1>
+      <% @categories.each do |f| %>
+        <div class="category-space">
+         <div class="material-space">
+           <h2><%= f.name %></h2>
+           <div class="material-space-one">
+             <% @materials.each do |c| %>
+              <% if f.id == c.category_id %>
+                <%= c.name %>
+                <%= link_to '削除', my_page_path(id: c.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+              <% end %>
+             <% end %>
+           </div>
+         </div>
+        </div>
+      <% end %>
     </div>
+  </div>
 </div>
