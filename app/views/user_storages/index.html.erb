@@ -8,13 +8,21 @@
       <% else %>
         <img src="img/about-img/no-image.png" alt="">
       <% end %>
-      <%= form_for @my_image, url: {controller: :my_images} do |f| %>
-        <%= f.label :image %>
-        <%= f.file_field :image, required: true %>
-        <%= f.submit '保存' %>
+      <% if myself_image.nil? %>
+        <%= form_for @my_image, url: {action: :create, controller: :my_images} , multipart: :true do |f| %>
+          <%= f.label :image %>
+          <%= f.file_field :image%>
+          <%= f.submit '保存' %>
+        <% end %>
+      <% else %>
+        <%= form_for @my_image, url: {action: :update, controller: :my_images}, multipart: :true do |f| %>
+          <%= f.label :image %>
+          <%= f.file_field :image%>
+          <%= f.submit '保存' %>
+        <% end %>
       <% end %>
       <h1>食材登録</h1>
-      <%= form_for @material, url: {controller: :my_pages, action: :create} do |f| %>
+      <%= form_for @user_storage, url: {controller: :user_storages, action: :create} do |f| %>
         <div class="form-group">
           <%= f.label :category_id, class: "box"%>
           <%= f.collection_select(:category_id, @categories, :id, :name, :prompt => "選択してください")  %>
@@ -30,10 +38,10 @@
          <div class="material-space">
            <h2><%= f.name %></h2>
            <div class="material-space-one">
-             <% @materials.each do |c| %>
+             <% @user_storages.each do |c| %>
               <% if f.id == c.category_id %>
                 <%= c.name %>
-                <%= link_to '削除', my_page_path(id: c.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
+                <%= link_to '削除', user_storage_path(id: c.id), method: :delete, action: :destroy, class: "btn btn-primary btn-xs" %>
               <% end %>
              <% end %>
            </div>

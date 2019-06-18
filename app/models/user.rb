@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_one  :my_image
-  has_many :materials
-  has_many :contents
+  has_one  :my_image, primary_key: :id, foreign_key: :user_id
+  has_many :user_storages, primary_key: :id, foreign_key: :user_id
+  has_many :recipes
 end

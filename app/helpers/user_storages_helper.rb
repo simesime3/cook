@@ -1,0 +1,2 @@
+module UserStoragesHelper
+end

@@ -10,38 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_131213) do
+ActiveRecord::Schema.define(version: 2019_06_17_140632) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "contents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "title"
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "content_id"
-    t.string "ingredient"
-    t.string "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "category_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_materials_on_category_id"
-    t.index ["user_id"], name: "index_materials_on_user_id"
   end
 
   create_table "my_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,6 +26,32 @@ ActiveRecord::Schema.define(version: 2019_06_12_131213) do
     t.index ["user_id"], name: "index_my_images_on_user_id"
   end
 
+  create_table "recipe_images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "recipe_id"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_images_on_recipe_id"
+  end
+
+  create_table "recipes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
+
+  create_table "user_storages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "category_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_user_storages_on_category_id"
+    t.index ["user_id"], name: "index_user_storages_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -60,7 +60,9 @@ ActiveRecord::Schema.define(version: 2019_06_12_131213) do
     t.string "password_digest"
   end
 
-  add_foreign_key "materials", "categories"
-  add_foreign_key "materials", "users"
   add_foreign_key "my_images", "users"
+  add_foreign_key "recipe_images", "recipes"
+  add_foreign_key "recipes", "users"
+  add_foreign_key "user_storages", "categories"
+  add_foreign_key "user_storages", "users"
 end
