@@ -2,7 +2,9 @@
   <% @recipes.each do |f| %>
     <div class="text-center content-box">
       <h2 class="overflow"><%= f.title %></h2>
-      <%= image_tag f.image.url, class: 'about-me-widget-200' %>
+      <%= f.fields_for :picture do |p| %>
+        <%= image_tag p.image.url, class: 'about-me-widget-200' %>
+      <% end %>
     </div>
   <% end %>
 </div>

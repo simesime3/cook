@@ -10,18 +10,23 @@
             </div>
           <% end %>
   <%= form_for @recipe, url: :recipes do |f| %>
-    <h3>タイトル</h3>
     <%= f.submit '保存' %>
-
-
+    <h3>タイトル</h3>
+    <%= f.text_field :title, class: "form-control" %>
       <div class="box left">
-        <%= f.label :image %>
-        <%= f.file_field :image%>
+        <%= f.fields_for :picture do |p| %>
+          <%= p.label :image %>
+          <%= p.file_field :image %>
+        <% end %>
       </div>
       <div class="box right">
         <div class="box text-center one-text">
-          <%= f.fields_for :foods do |i| %>
+
+          <%= f.fields_for :ingredients do |i| %>
+          <%= f.fields_for :quantities do |q| %>
             <form action="data.php" enctype="multipart/form-data">
+              <%= i.text_field :name, class: "form-control" %>
+              <%= q.text_field :amount, class: "form-control" %>
               <table>
                 <thead>
                   <tr>
@@ -46,9 +51,17 @@
               <input type="submit" name="send" value="送信">
             </form>
           <% end %>
+          <% end %>
         </div>
       </div>
+      <%= f.fields_for :steps do |s| %>
+          <%= s.label :image %>
+          <%= s.file_field :image%>
+          <%= s.text_field :detail, class: "form-control" %>
+      <% end %>
     <% end %>
+
+
     <script type="text/javascript">
       $(function() {
 
