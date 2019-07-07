@@ -5,35 +5,53 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = current_user.recipes.new
-    @picture = @recipe.build_picture
     @ingredients = @recipe.ingredients.build
     @quantities  = @recipe.quantities.build
     @steps       = @recipe.steps.build
   end
 
   def create
-    @recipe = current_user.recipes.new(recipe_params)
-    @picture = @recipe.build_picture(image: recipe_params[picture_attribute: [:image]])
-    @ingredients = @recipe.ingredients.build(name: recipe_params[ingredients_attributes: [:name]])
-    @quantities = @recipe.quantities.build(amount: recipe_params[quantities_attributes: [:amount]])
-    @steps = @recipe.steps.build(image: recipe_params[steps_attributes: [:image]], detail: recipe_params[steps_attributes: [:detail]])
-    if @recipe.save && @ingredients.save && @picture.save && @quantities.save && @steps.save
-      redirect_to '/recipes', success: '投稿に成功しました'
-    else
-      # @recipe = current_user.recipes.new(recipe_params)
-      flash.now[:danger] = "投稿に失敗しました"
-      render "new"
+    ActiveRecord::Base.transaction do
+      @recipe = current_user.recipes.new(title: recipe_params[:title], image: recipe_params[:image])
+      # binding.pry
+      i = 1
+      while recipe_params[:"ingredients_#{i}"] do
+        @ingredient = @recipe.ingredients.new(name: recipe_params[:"ingredients_#{i}"])
+        @ingredient.save!
+        i +=1
+      end
+      q = 1
+      while recipe_params[:"quantities_#{q}"] do
+        @quantity = @recipe.quantities.new(amount: recipe_params[:"quantities_#{q}"])
+        @quantity.save!
+        q +=1
+      end
+      @steps = @recipe.steps.new(image: recipe_params[:steps][:image], detail: recipe_params[:steps][:detail])
+      @recipe.save! && @steps.save!
     end
+      redirect_to action: 'index', success: '投稿に成功しました'
+    rescue => e
+      flash.now[:danger] = "投稿に失敗しました"
+      puts e.message
+      render :new
+  end
+
+  def edit
+    @recipe = Recipe.find_by(id: params[:id])
+    # binding.pry
+    @ingredients = @recipe.recipe_ingredients.where(recipe_id :id).where(customer: { id: 1 })
   end
 
   private
   def recipe_params
-    params.require(:recipe).permit(
-      :title,
-      racipe_picture_attributes: [:image],
-      racipe_ingredients_attributes: [:name],
-      racipe_quantities_attributes: [:amount],
-      racipe_steps_attributes: [:image, :detail]
+    ingredients = []
+    quantities = []
+    (1..20).each do |i|
+      ingredients << "ingredients_#{i}"
+      quantities << "quantities_#{i}"
+    end
+    params.require(:recipe).permit(:title, :image, ingredients, quantities,
+      steps: [:image, :detail]
     )
   end
 end

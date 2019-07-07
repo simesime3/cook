@@ -1,6 +1,7 @@
 class Step < ApplicationRecord
-  validates :step, presence: true
+  validates :image, presence: true
+  validates :detail, presence: true
 
-  has_one  :recipe_step, primary_key: :recipe_id, foreign_key: :step_id
-  has_one  :user, through: :recipe_step
+  has_one  :recipe_step, foreign_key: :step_id, dependent: :destroy
+  has_one  :user, through: :recipe_step, dependent: :destroy
 end

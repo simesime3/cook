@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_114414) do
+ActiveRecord::Schema.define(version: 2019_06_30_073746) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -32,12 +32,6 @@ ActiveRecord::Schema.define(version: 2019_06_19_114414) do
     t.index ["user_id"], name: "index_my_images_on_user_id"
   end
 
-  create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "quantities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "amount"
     t.datetime "created_at", null: false
@@ -51,15 +45,6 @@ ActiveRecord::Schema.define(version: 2019_06_19_114414) do
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
-  end
-
-  create_table "recipe_pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.bigint "picture_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["picture_id"], name: "index_recipe_pictures_on_picture_id"
-    t.index ["recipe_id"], name: "index_recipe_pictures_on_recipe_id"
   end
 
   create_table "recipe_quantities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -85,6 +70,8 @@ ActiveRecord::Schema.define(version: 2019_06_19_114414) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image", default: ""
+    t.index ["title"], name: "index_recipes_on_title"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -116,8 +103,6 @@ ActiveRecord::Schema.define(version: 2019_06_19_114414) do
   add_foreign_key "my_images", "users"
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
-  add_foreign_key "recipe_pictures", "pictures"
-  add_foreign_key "recipe_pictures", "recipes"
   add_foreign_key "recipe_quantities", "quantities"
   add_foreign_key "recipe_quantities", "recipes"
   add_foreign_key "recipe_steps", "recipes"

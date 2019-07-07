@@ -1,0 +1,20 @@
+<h2>検索する</h2>
+
+<%= search_form_for @q, url: :searches do |f| %>
+  <div class="form-group">
+    <%= f.label :title_cont, "料理名" %>
+    <%= f.text_field :title_cont, class: "form-control" %>
+  </div>
+
+  <div class="actions"><%= f.submit "Search" %></div>
+
+  <ul><% @recipes.each do |post| %>
+  <li>
+    <%= link_to post.title, post %>
+    <%= post.created_at %>
+  </li>
+
+  <% end %>
+</ul>
+
+<% end %>

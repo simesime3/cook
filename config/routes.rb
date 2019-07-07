@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
-  get 'recipes/new'
-  get 'my_pages/new'
-  get 'pages/new'
-  get 'recipes/new'
-  get 'my_images/new'
-  get 'user_storages/new'
-  get 'sessions/new'
-  get 'users/new'
+  get 'searches/new'
   root 'pages#index'
+  get 'my_pages/new'
+  get 'user_storages/new'
+
+  # resourecesにまとめる
+  get 'my_images/new'
   patch 'my_images', to: 'my_images#update'
   post 'my_images', to: 'my_images#create'
+  #
 
   resources :users
   resources :user_storages
+  resources :searches
+  post '/recipes/new' => 'recipes#create',as: 'recipes' #更新失敗した時にparamsの情報を保持する
   resources :recipes
 
   get    '/login',   to: 'sessions#new'

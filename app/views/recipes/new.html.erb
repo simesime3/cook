@@ -1,81 +1,91 @@
 <div class="col-md-6 col-md-offset-3">
-          <% if @recipe.errors.any? %>
-            <div id="error_explanation">
-              <h2 class = 'red-color'><%= @recipe.errors.count %>件のエラーがあります。</h2>
-              <ul>
-              <% @recipe.errors.full_messages.each do |msg| %>
-                <li class = 'red-color'><%= msg %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-  <%= form_for @recipe, url: :recipes do |f| %>
+
+  <%= form_for @recipe = current_user.recipes.new, url: :recipes do |f| %>
     <%= f.submit '保存' %>
     <h3>タイトル</h3>
     <%= f.text_field :title, class: "form-control" %>
       <div class="box left">
-        <%= f.fields_for :picture do |p| %>
-          <%= p.label :image %>
-          <%= p.file_field :image %>
-        <% end %>
+        <%= f.label :image %>
+        <div class="click-image" id="img_field" onClick="$('#file').click()" >
+          <% if @recipe.image.url.present? %>
+            <%= image_tag(@recipe.image.url) %>
+          <% end %>
+
+        </div>
+        <%= f.file_field :image, id: "file" %>
       </div>
       <div class="box right">
         <div class="box text-center one-text">
+          <table>
+            <thead>
+              <tr>
+                <th>材料</th>
+                <th>数量</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div class="box text-center one-text">
+              <tr>
+                <td><input type="text" name="recipe[ingredients_1]" id="recipe_ingredients_name_1"></td>
+                <td><input type="text" name="recipe[quantities_1]" id="recipe_quantities_amount_1"></td>
 
-          <%= f.fields_for :ingredients do |i| %>
-          <%= f.fields_for :quantities do |q| %>
-            <form action="data.php" enctype="multipart/form-data">
-              <%= i.text_field :name, class: "form-control" %>
-              <%= q.text_field :amount, class: "form-control" %>
-              <table>
-                <thead>
-                  <tr>
-                    <th>材料</th>
-                    <th>数量</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <div>
-                      <td><input type="text" name="text_1[]"></td>
-                      <td><input type="text" name="text_2[]"></td>
-                    </div>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td><button id="add" type="button">追加</button></td>
-                  </tr>
-                </tfoot>
-              </table>
-              <input type="submit" name="send" value="送信">
-            </form>
-          <% end %>
-          <% end %>
+              </tr>
+                </div>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td ><button id="add" type="button">追加</button></td>
+              </tr>
+            </tfoot>
+          </table>
+          <script type="text/javascript">
+          $(function() {
+            var click_count = 1;
+            $('button#add').click(function(){
+              click_count++;
+
+            var tr_form = '' +
+            '<tr>' +
+              '<td><input type="text" name="recipe[ingredients_'+click_count+']" id="recipe_ingredients_name_'+click_count+'"></td>' +
+              '<td><input type="text" name="recipe[quantities_'+click_count+']" id="recipe_quantities_amount_'+click_count+'"></td>' +
+            '</tr>';
+
+            $(tr_form).appendTo($('table > tbody'));
+
+          });
+          });
+          </script>
         </div>
       </div>
       <%= f.fields_for :steps do |s| %>
           <%= s.label :image %>
-          <%= s.file_field :image%>
+          <%= s.file_field :image %>
           <%= s.text_field :detail, class: "form-control" %>
       <% end %>
     <% end %>
-
-
-    <script type="text/javascript">
-      $(function() {
-
-      $('button#add').click(function(){
-
-      var tr_form = '' +
-      '<tr>' +
-      '<td><input type="text" name="text_1[]"></td>' +
-      '<td><input type="text" name="text_2[]"></td>' +
-      '</tr>';
-
-      $(tr_form).appendTo($('table > tbody'));
-
-      });
-    });
-  </script>
 </div>
+
+<script>
+  $(function(){
+    $fileField = $('#file')
+    // 選択された画像を取得し表示
+    $($fileField).on('change', $fileField, function(e) {
+      file = e.target.files[0]
+      reader = new FileReader(),
+      $preview = $("#img_field");
+      reader.onload = (function(file) {
+        return function(e) {
+          $preview.empty();
+          $preview.append($('<img>').attr({
+            src: e.target.result,
+            width: "100%",
+            height: "250px",
+            class: "preview",
+            title: file.name
+          }));
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
