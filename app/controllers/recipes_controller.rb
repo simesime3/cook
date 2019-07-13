@@ -8,26 +8,16 @@ class RecipesController < ApplicationController
     @ingredients = @recipe.ingredients.build
     @quantities  = @recipe.quantities.build
     @steps       = @recipe.steps.build
+    # binding.pry
   end
 
   def create
     ActiveRecord::Base.transaction do
       @recipe = current_user.recipes.new(title: recipe_params[:title], image: recipe_params[:image])
-      # binding.pry
-      i = 1
-      while recipe_params[:"ingredients_#{i}"] do
-        @ingredient = @recipe.ingredients.new(name: recipe_params[:"ingredients_#{i}"])
-        @ingredient.save!
-        i +=1
-      end
-      q = 1
-      while recipe_params[:"quantities_#{q}"] do
-        @quantity = @recipe.quantities.new(amount: recipe_params[:"quantities_#{q}"])
-        @quantity.save!
-        q +=1
-      end
-      @steps = @recipe.steps.new(image: recipe_params[:steps][:image], detail: recipe_params[:steps][:detail])
-      @recipe.save! && @steps.save!
+      Ingredient.new.ingredient_store(recipe_params, @recipe)
+      Quantity.new.quantity_store(recipe_params, @recipe)
+      Step.new.step_store(recipe_params, @recipe)
+      @recipe.save!
     end
       redirect_to action: 'index', success: '投稿に成功しました'
     rescue => e
@@ -37,9 +27,15 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find_by(id: params[:id])
+    @recipe = Recipe.find(params[:id])
     # binding.pry
-    @ingredients = @recipe.recipe_ingredients.where(recipe_id :id).where(customer: { id: 1 })
+    @ingredients = @recipe.ingredients
+    @quantity = @recipe.quantities
+    @steps = @recipe.steps
+  end
+
+  def update
+    a
   end
 
   private

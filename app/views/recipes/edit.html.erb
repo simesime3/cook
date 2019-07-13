@@ -1,5 +1,72 @@
-<%= @recipe.title %>
-<%= @recipe.image %>
-<% @ingredients.each do |i| %>
-  <%= i.name %>
-<% end %>
+<div class="col-md-6 col-md-offset-3">
+  <%= form_for @recipe, url: recipe_path, action: :update do |f| %>
+    <%= f.submit '保存' %>
+    <h3>タイトル</h3>
+    <%= f.text_field :title, class: "form-control" %>
+      <div class="box left">
+        <%= f.label :image %>
+        <div class="click-image" id="img_field" onClick="$('#file').click()" >
+          <%= image_tag(@recipe.image.url) %>
+        </div>
+        <%= f.file_field :image, id: "file" %>
+      </div>
+      <div class="box right">
+        <div class="box text-center one-text">
+          <table>
+            <thead>
+              <tr>
+                <th>材料</th>
+                <th>数量</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div class="box text-center one-text">
+              <tr>
+                <%= f.fields_for :ingredients do |ingredient| %>
+                  <% @ingredients.each do |i| %>
+                    <%= ingredient.text_field :title, class: "form-control", value: i.name %>
+                  <% end %>
+                <% end %>
+              </tr>
+              </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <%= f.fields_for :step do |step| %>
+        <% @steps.each do |s| %>
+          <%= step.label :image %>
+          <div class="click-image" id="img_field" onClick="$('#file').click()" >
+            <%= image_tag(s.image.url) %>
+          </div>
+          <%= step.file_field :image, value: s.image %>
+          <%= step.text_field :detail, class: "form-control", value: s.detail %>
+        <% end %>
+      <% end %>
+    <% end %>
+</div>
+
+<script>
+  $(function(){
+    $fileField = $('#file')
+    // 選択された画像を取得し表示
+    $($fileField).on('change', $fileField, function(e) {
+      file = e.target.files[0]
+      reader = new FileReader(),
+      $preview = $("#img_field");
+      reader.onload = (function(file) {
+        return function(e) {
+          $preview.empty();
+          $preview.append($('<img>').attr({
+            src: e.target.result,
+            width: "100%",
+            height: "250px",
+            class: "preview",
+            title: file.name
+          }));
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
