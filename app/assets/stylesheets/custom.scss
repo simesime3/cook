@@ -141,6 +141,19 @@ font-size: 15px;
   border-radius:10px;
   padding-bottom: 5px;
   margin-top: 5px;
+  img{
+    width: 100%;
+    height: 250px;
+  }
+}
+.title-box {
+  float: left;
+  display: inline-block;
+  width: 45%;
+  margin-left: 5px;
+  h5{
+    font-size: 15px;
+  }
 }
 .right {
   width:35%;
@@ -153,8 +166,20 @@ font-size: 15px;
   .one-text{
     width: 100%;
     font-size: 15px;
+    .right-left {
+      float: left;
+      display: inline-block;
+      width: 45%;
+      margin-left: 5px;
+    }
   }
   a {
     margin: 10px
   }
+}
+
+.right-left {
+  display: inline-block;
+  width: 45%;
+  margin-left: 5px;
 }

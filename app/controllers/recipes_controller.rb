@@ -28,9 +28,8 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find(params[:id])
-    # binding.pry
     @ingredients = @recipe.ingredients
-    @quantity = @recipe.quantities
+    @quantities = @recipe.quantities
     @steps = @recipe.steps
   end
 

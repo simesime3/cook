@@ -15,18 +15,31 @@
           <table>
             <thead>
               <tr>
-                <th>材料</th>
-                <th>数量</th>
+                <div class="title-box">
+                  <h5>材料</h5>
+                </div>
+                <div class="title-box">
+                  <h5>数量</h5>
+                </div>
               </tr>
             </thead>
             <tbody>
               <div class="box text-center one-text">
               <tr>
-                <%= f.fields_for :ingredients do |ingredient| %>
-                  <% @ingredients.each do |i| %>
-                    <%= ingredient.text_field :title, class: "form-control", value: i.name %>
+                <div class="right-left">
+                  <%= f.fields_for :ingredients do |ingredient| %>
+                    <% @ingredients.each do |i| %>
+                      <%= ingredient.text_field :name, class: "form-control", value: i.name %>
+                    <% end %>
                   <% end %>
-                <% end %>
+                </div>
+                <div class="right-left">
+                  <%= f.fields_for :quantities, @quantities do |quantity| %>
+                    <% @quantities.each do |q| %>
+                      <%= quantity.text_field :amount, id: q.id,class: "form-control", value: q.amount %>
+                    <% end %>
+                  <% end %>
+                </div>
               </tr>
               </div>
             </tbody>
