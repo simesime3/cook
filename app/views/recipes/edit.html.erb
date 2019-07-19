@@ -34,10 +34,8 @@
                   <% end %>
                 </div>
                 <div class="right-left">
-                  <%= f.fields_for :quantities, @quantities do |quantity| %>
-                    <% @quantities.each do |q| %>
-                      <%= quantity.text_field :amount, id: q.id,class: "form-control", value: q.amount %>
-                    <% end %>
+                  <%= f.fields_for :quantities, @quantities.each do |q| %>
+                      <%= q.text_field :amount, class: "form-control", value: q.amount %>
                   <% end %>
                 </div>
               </tr>
