@@ -12,6 +12,16 @@ class Quantity < ApplicationRecord
       q +=1
     end
   end
+
+  def quantity_edit_store(recipe_edit_params)
+    recipe_edit_params[:quantity][:quantity_params].each do |quantity|
+      @quantity = Ingredient.find_by(id: quantity.id)
+      @quantity.update!(amount: quantity.amount)
+    end
+  end
+
+
+
   private
   def recipe_params
     quantities = []
@@ -20,5 +30,4 @@ class Quantity < ApplicationRecord
     end
     params.require(:quantity).permit(quantities)
   end
-
 end

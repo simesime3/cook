@@ -1,2 +1,19 @@
-<h1>Searches#new</h1>
-<p>Find me in app/views/searches/new.html.erb</p>
+<div class="col-md-6 col-md-offset-3">
+<h2>検索する</h2>
+<%= search_form_for @q, url: :searches do |f| %>
+  <div class="form-group">
+    <%= f.label :title_cont, "料理名" %>
+    <%= f.text_field :title_cont, class: "form-control" %>
+  </div>
+
+<div class="actions"><%= f.submit "Search" %></div>
+  <% @recipes.each do |post| %>
+  <div class="text-center content-box">
+    <%= link_to recipe_path(post) do %>
+      <h2 class="overflow"><%= post.title %></h2>
+      <%= image_tag post.image.url, class: 'about-me-widget-200' %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<% end %>

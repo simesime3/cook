@@ -34,7 +34,23 @@ class RecipesController < ApplicationController
   end
 
   def update
-    a
+    ActiveRecord::Base.transaction do
+      @recipe = Recipe.find(params[:id])
+      Ingredient.new.ingredient_edit_store(recipe_edit_params)
+      Quantity.new.quantity_edit_store(recipe_edit_params)
+      Step.new.step_edit_store(recipe_edit_params)
+      @recipe.update!.(title: recipe_edit_params[:title], image: recipe_params_edit[:image])
+    end
+      redirect_to action: 'index', success: '編集に成功しました'
+    # rescue => e
+      flash.now[:danger] = "編集に失敗しました"
+      puts e.message
+      @recipe = Recipe.find(params[:id])
+      @ingredients = @recipe.ingredients
+      @quantities = @recipe.quantities
+      @steps = @recipe.steps
+      render :edit
+    end
   end
 
   private
@@ -49,4 +65,8 @@ class RecipesController < ApplicationController
       steps: [:image, :detail]
     )
   end
-end
+  def recipe_edit_params
+    params.permit(:title, :image, recipe: [
+      ingredients: [ingredient_params: [:id, :name]], quantities: [quantitie_params: [:id, :amount]], steps: [step_params: [:id, :image, :detail]]
+    ])
+  end

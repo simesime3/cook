@@ -1,5 +1,8 @@
 class SearchesController < ApplicationController
   def new
+    params[:q]= :nil
+    @q = Recipe.ransack(title_cont_any: params[:q])
+    @recipes = @q.result(distinct: :true)
   end
 
   def index

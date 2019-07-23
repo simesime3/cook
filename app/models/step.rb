@@ -12,6 +12,13 @@ class Step < ApplicationRecord
     @steps.save!
   end
 
+  def step_edit_store(recipe_edit_params)
+    recipe_edit_params[:step][:step_params].each do |step|
+      @step = Ingredient.find_by(id: step.id)
+      @step.update!(image: step.image, detail: step.detail)
+    end
+  end
+
   private
   def recipe_params
     params.require(:step).permit(steps: [:image, :detail])
