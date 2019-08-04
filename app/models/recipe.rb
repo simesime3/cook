@@ -19,4 +19,16 @@ class Recipe < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  def recipe_find(find_id)
+    @recipe = Recipe.find(find_id)
+    return @recipe
+  end
+
+  def recipe_edit_store_true(recipe_edit_params, recipe)
+    recipe.update!(title: recipe_edit_params[:recipe][:title], image: recipe_edit_params[:recipe][:image])
+  end
+
+  def recipe_edit_store_false(recipe_edit_params, recipe)
+    recipe.update!(title: recipe_edit_params[:recipe][:title])
+  end
 end

@@ -5,6 +5,8 @@
     <%= f.label :title_cont, "料理名" %>
     <%= f.text_field :title_cont, class: "form-control" %>
   </div>
+<%= @rakuten %>
+
 
 <div class="actions"><%= f.submit "Search" %></div>
   <% @recipes.each do |post| %>

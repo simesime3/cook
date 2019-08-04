@@ -14,9 +14,9 @@ class Quantity < ApplicationRecord
   end
 
   def quantity_edit_store(recipe_edit_params)
-    recipe_edit_params[:quantity][:quantity_params].each do |quantity|
-      @quantity = Ingredient.find_by(id: quantity.id)
-      @quantity.update!(amount: quantity.amount)
+    recipe_edit_params[:recipe][:quantities][:quantity_params].each do |quantity|
+      @quantity = Quantity.find_by(id: quantity[:id])
+      @quantity.update!(amount: quantity[:amount])
     end
   end
 

@@ -15,9 +15,9 @@ class Ingredient < ApplicationRecord
   end
 
   def ingredient_edit_store(recipe_edit_params)
-    recipe_edit_params[:ingredient][:ingredient_params].each do |ingredient|
-      @ingredient = Ingredient.find_by(id: ingredient.id)
-      @ingredient.update!(name: ingredient.name)
+    recipe_edit_params[:recipe][:ingredients][:ingredient_params].each do |ingredient|
+      @ingredient = Ingredient.find_by(id: ingredient[:id])
+      @ingredient.update!(name: ingredient[:name])
     end
   end
 

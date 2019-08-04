@@ -13,9 +13,13 @@ class Step < ApplicationRecord
   end
 
   def step_edit_store(recipe_edit_params)
-    recipe_edit_params[:step][:step_params].each do |step|
-      @step = Ingredient.find_by(id: step.id)
-      @step.update!(image: step.image, detail: step.detail)
+    recipe_edit_params[:recipe][:steps][:step_params].each do |step|
+      @step = Step.find_by(id: step[:id])
+      if step[:image] == nil
+        @step.update!(detail: step[:detail])
+      else
+        @step.update!(image: step[:image], detail: step[:detail])
+      end
     end
   end
 

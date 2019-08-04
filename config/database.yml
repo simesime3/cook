@@ -48,13 +48,13 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  database:[cook_production]
-
   # <<: *default
-  # database: cook_production
-  # username: cook
-  # password: <%= ENV['COOK_DATABASE_PASSWORD'] %>
+  # adapter: postgresql
+  # encoding: unicode
+  # pool: 5
+  # database:[cook_production]
+
+  <<: *default
+  database: cook_production
+  username: cook
+  password: <%= ENV['COOK_DATABASE_PASSWORD'] %>
